@@ -25,6 +25,10 @@ public class ClientHandler implements Runnable {
         nickName = "Пользователь" + cnt;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
     @Override
     public void run() {
         try {
@@ -33,8 +37,13 @@ public class ClientHandler implements Runnable {
             System.out.println("Клиент подключается!");
             while (running) {
                 String message = in.readUTF();
-                if (message.equals("/выход")) out.writeUTF(message);
-                //if (message.equals("/c " + nickName + "\\d")) server.sendMessageTo(nickName + "\\d", message);
+                if (message.charAt(0) == '/') {
+                    String[] split = message.split(" ",3);
+                    if (split[0].equals("/выход")) out.writeUTF(message);
+                    if (split[0].equals("/с")) {
+                        server.sendMessageTo(nickName, split[1], nickName + ": " + split[2]);
+                    }
+                }
                 else server.broadCastMessage(nickName + ": " + message);
                 System.out.println("Сообщение от клиента: " + message);
             }

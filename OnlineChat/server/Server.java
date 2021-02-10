@@ -41,9 +41,14 @@ public class Server {
         }
     }
 
-    public void sendMessageTo(String nickName, String message) throws IOException {
+    public void sendMessageTo(String fromM, String toM, String message) throws IOException {
         for (ClientHandler client : clients) {
-            if(nickName.equals(client)) client.sendMessage(message);
+            System.out.println(fromM);
+            System.out.println(toM);
+            System.out.println(message);
+            if(client.getNickName().equals(fromM) || client.getNickName().equals(toM)) {
+                client.sendMessage(message);
+            }
         }
     }
 
