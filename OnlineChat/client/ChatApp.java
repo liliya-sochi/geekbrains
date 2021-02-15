@@ -1,5 +1,6 @@
 package client;
 
+import core.QuitRequest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,13 +15,13 @@ public class ChatApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         Network network = Network.getInstance();
         Parent root = FXMLLoader.load(getClass().getResource("chat.fxml"));
-        primaryStage.setScene(new Scene(root, 600, 900));
+        primaryStage.setScene(new Scene(root, 900, 900));
         primaryStage.setTitle("ВЧате");
         primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest(request -> {
             try {
-                network.writeMessage("/выход");
+                network.writeMessage(new QuitRequest());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
