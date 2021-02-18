@@ -50,19 +50,4 @@ public class DBHandler extends ConfigDB {
         return resultSet;
     }
 
-    public ResultSet findLogin(User user) {
-        ResultSet resultSet = null;
-        String select = "SELECT * FROM " + ConstDB.USER_TABLE + " WHERE " + ConstDB.USERS_LOGIN + "=?";
-        try {
-            PreparedStatement preparedStatement = getDbConnection().prepareStatement(select);
-            preparedStatement.setString(1, user.getLogin());
-            resultSet = preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return resultSet;
-    }
-
 }
