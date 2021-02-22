@@ -1,7 +1,5 @@
 package database;
 
-import main.User;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,28 +17,28 @@ public class DBHandler extends ConfigDB {
         return dbConnection;
     }
 
-    public void singUpUser(User user) throws SQLIntegrityConstraintViolationException, SQLException  {
+    public void singUpUser(String name, String login, String password) throws SQLIntegrityConstraintViolationException, SQLException  {
         String insert = "INSERT INTO " + ConstDB.USER_TABLE + "(" + ConstDB.USERS_NAME + "," + ConstDB.USERS_LOGIN +
                 "," + ConstDB.USERS_PASSWORD + ")" + "VALUES(?,?,?)";
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, login);
+            preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public ResultSet getUser(User user) {
+    public ResultSet getUser(String login, String password) {
         ResultSet resultSet = null;
         String select = "SELECT * FROM " + ConstDB.USER_TABLE + " WHERE " + ConstDB.USERS_LOGIN + "=? AND " +
                 ConstDB.USERS_PASSWORD + "=?";
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(select);
-            preparedStatement.setString(1, user.getLogin());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

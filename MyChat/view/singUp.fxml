@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SingUpController">
+<AnchorPane fx:id="main" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SingUpController">
    <children>
       <Label alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #2E3348;" text="ВЧате" textAlignment="CENTER" textFill="WHITE">
          <font>
