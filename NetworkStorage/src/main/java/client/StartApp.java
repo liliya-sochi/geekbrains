@@ -25,7 +25,7 @@ public class StartApp extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("view/singIn.fxml")) {
-            Parent root = fxmlLoader.load(inputStream);
+            Parent root = fxmlLoader.load(inputStream); /** <- НЕ МОГУ ПОНЯТЬ, В ЧЁМ ТУТ ПРОБЛЕМА? */
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
