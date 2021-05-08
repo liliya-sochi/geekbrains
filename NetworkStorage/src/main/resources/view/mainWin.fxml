@@ -25,27 +25,27 @@
             <font><Font name="Comic Sans MS" size="20.0" /></font></Button>
       <ImageView fx:id="icoExit" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/Exit.png" />
+            <Image url="/icon/ico-x50-exit.png" />
          </image>
       </ImageView>
       <ImageView fx:id="icoAddFolder" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/AddFolder.png" />
+            <Image url="/icon/ico-x50-addfolder.png" />
          </image>
       </ImageView>
       <ImageView fx:id="icoDelFolder" fitHeight="50.0" fitWidth="50.0" layoutX="80.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/DelFolder.png" />
+            <Image url="/icon/ico-x50-delfolder.png" />
          </image>
       </ImageView>
       <ImageView fx:id="icoAddFile" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/AddFile.png" />
+            <Image url="/icon/ico-x50-addfile.png" />
          </image>
       </ImageView>
       <ImageView fx:id="icoDelFile" fitHeight="50.0" fitWidth="50.0" layoutX="80.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/DelFile.png" />
+            <Image url="/icon/ico-x50-delfile.png" />
          </image>
       </ImageView>
     </children>

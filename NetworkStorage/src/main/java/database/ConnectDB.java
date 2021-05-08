@@ -7,8 +7,9 @@ public class ConnectDB {
 
     // Подключение к Базе Данных:
     public Connection getConnectionDB() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + ConfigDB.DB_HOST + ":" + ConfigDB.DB_PORT + "/" + ConfigDB.DB_NAME;
-        Class.forName("com.mysql.jdbc.Driver");
+        String connectionString = "jdbc:mysql://" + ConfigDB.DB_HOST + ":" + ConfigDB.DB_PORT + "/" + ConfigDB.DB_NAME +
+                "?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false";
+        Class.forName("com.mysql.cj.jdbc.Driver");
         connectionDB = DriverManager.getConnection(connectionString, ConfigDB.DB_USER, ConfigDB.DB_PASSWORD);
         return connectionDB;
     }
