@@ -13,16 +13,8 @@ import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class StartClient {
+public class Client {
     private static final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(5);
-
-    public static void main(String[] args) throws InterruptedException {
-        try {
-            new StartClient().start();
-        } finally {
-            THREAD_POOL.shutdown();
-        }
-    }
 
     public void start() throws InterruptedException {
         final NioEventLoopGroup group = new NioEventLoopGroup();
@@ -40,20 +32,21 @@ public class StartClient {
                             );
                         }
                     });
-            System.out.println("DEBUG: Клиент подключился!");
+            System.out.println("[DEBUG]: Подключился новый клиент!");
             ChannelFuture channelFuture = bootstrap.connect("localhost", 9000).sync();
 
-            while (true) {
+            /** while (true) {
                 final String message = String.format("[%s] %s", LocalDateTime.now(), Thread.currentThread().getName());
                 System.out.println("MESSAGE: " + message);
                 channelFuture.channel().writeAndFlush(message + "\n");
                 channelFuture.channel().writeAndFlush(message + System.lineSeparator()).sync();
                 Thread.sleep(1000);
-            }
+            } */
         } catch (InterruptedException e ) {
             e.printStackTrace();
         } finally {
             group.shutdownGracefully();
+            THREAD_POOL.shutdown();
         }
     }
 }

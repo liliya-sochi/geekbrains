@@ -51,13 +51,17 @@ public class SingUpController {
             } catch (SQLException e) {
                 labWarning.setText("Ошибка в работе программы, зайдите попозже!");
                 System.err.println("[ERROR]: Ошибка в работе Базы Данных!");
+            } catch (InterruptedException e) {
+                labWarning.setText("Ошибка в работе программы, зайдите попозже!");
+                System.err.println("[ERROR]: Клиен не подключился к серверу!");
             } catch (IOException e) {
-                e.printStackTrace();
+                labWarning.setText("Ошибка в работе программы, зайдите попозже!");
+                System.err.println("[ERROR]: Что-то пошло не так!");
             }
         });
     }
 
-    private void singUpNewUsers() throws SQLIntegrityConstraintViolationException, SQLException, IOException {
+    private void singUpNewUsers() throws SQLIntegrityConstraintViolationException, SQLException, IOException, InterruptedException {
         ConnectDB connectDB = new ConnectDB();
         String name = texName.getText();
         String login = texLogin.getText();

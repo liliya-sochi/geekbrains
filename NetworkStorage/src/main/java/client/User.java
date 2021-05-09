@@ -5,10 +5,11 @@ public class User {
     private String login;
     private String password;
 
-    public User(String name, String login, String password) {
+    public User(String name, String login, String password) throws InterruptedException {
         this.name = name;
         this.login = login;
         this.password = password;
+        new Client().start();
     }
 
     public String getName() {

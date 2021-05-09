@@ -71,7 +71,7 @@ public class SingInController {
                 /** ПРОВЕРИТЬ, СУЩЕСТВУЕТ ЛИ ПАПКА ДЛЯ ПОЛЬЗОВАТЕЛЯ НА СЕРВЕРЕ, ЕСЛИ НЕТ - СОЗДАТЬ! */
                 openNewSceneWithUser("/view/mainWin.fxml", user);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             System.err.println("[ERROR]: Что-то пошло не так...");
         }
         if (counter == 0) {

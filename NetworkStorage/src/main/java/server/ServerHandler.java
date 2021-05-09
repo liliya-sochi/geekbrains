@@ -5,11 +5,11 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class FirstServerHandler extends SimpleChannelInboundHandler<String> {
+public class ServerHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("DEBUG: Новый активный канал!");
+        System.out.println("[DEBUG]: Новый активный канал!");
     }
 
     @Override
@@ -25,6 +25,6 @@ public class FirstServerHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("DEBUG: Клиент отключился!");
+        System.out.println("[DEBUG]: Клиент отключился!");
     }
 }
