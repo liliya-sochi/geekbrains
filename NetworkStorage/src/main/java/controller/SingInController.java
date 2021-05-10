@@ -52,7 +52,7 @@ public class SingInController {
         });
 
         butSingUp.setOnAction(event -> {
-            openNewScene("/view/singUp.fxml");
+            openNewScene("/views/singUp.fxml");
         });
     }
 
@@ -68,8 +68,7 @@ public class SingInController {
                 String userPassword = result.getString(3);
                 user = new User(userName, userLogin, userPassword);
                 System.out.println("[DEBUG]: Открывается чат для пользователя - " + login + "...");
-                /** ПРОВЕРИТЬ, СУЩЕСТВУЕТ ЛИ ПАПКА ДЛЯ ПОЛЬЗОВАТЕЛЯ НА СЕРВЕРЕ, ЕСЛИ НЕТ - СОЗДАТЬ! */
-                openNewSceneWithUser("/view/mainWin.fxml", user);
+                openNewSceneWithUser("/views/mainWin.fxml", user);
             }
         } catch (SQLException | InterruptedException e) {
             System.err.println("[ERROR]: Что-то пошло не так...");
@@ -112,9 +111,9 @@ public class SingInController {
             System.err.println("[ERROR]: Что-то пошло не так...");
             e.printStackTrace();
         }
-        //MainController controller = loader.getController();
-        //controller.getUser(user);
-        //controller.loadingChat();
+        MainController controller = loader.getController();
+        controller.user(user);
+        controller.loading();
         stage.show();
     }
 }

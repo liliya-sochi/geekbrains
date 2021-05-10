@@ -68,10 +68,9 @@ public class SingUpController {
         String password = pasPassword.getText();
         connectDB.singUpUser(name, login, password);
         System.out.println("[DEBUG]: Зарегистрирован новый пользователь с логином - " + login + "!");
-        /** СОЗДАТЬ ПАПКУ ДЛЯ ПОЛЬЗОВАТЕЛЯ НА СЕРВЕРЕ! */
         user = new User(name, login, password);
         System.out.println("[DEBUG]: Открывается чат для пользователя - " + login + "...");
-        openNewSceneWithUser("/view/chat.fxml", user);
+        openNewSceneWithUser("/views/chat.fxml", user);
     }
 
     public void openNewSceneWithUser(String window, User user) {
@@ -83,9 +82,9 @@ public class SingUpController {
         } catch (IOException ioException) {
             System.err.println("[ERROR]: Что-то пошло не так...");
         }
-        ///MainController controller = loader.getController();
-        //controller.getUser(user);
-        //controller.loadingChat();
+        MainController controller = loader.getController();
+        controller.user(user);
+        controller.loading();
         stage.show();
     }
 

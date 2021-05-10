@@ -14,14 +14,14 @@ public class StartApp extends Application {
     public void start(Stage primaryStage) throws Exception{
         // Старт Приложения:
         FXMLLoader fxmlLoader = new FXMLLoader();
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("view/singIn.fxml")) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("views/singIn.fxml")) {
             Parent root = fxmlLoader.load(inputStream);
             Scene scene = new Scene(root, 1000, 700);
             primaryStage.setTitle("Сетевое Хранилище");
             primaryStage.setScene(scene);
             primaryStage.show();
         }
-        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("icon/ico-favicon.png")) {
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("icons/ico-favicon.png")) {
             Image image = new Image(iconStream);
             primaryStage.getIcons().add(image);
         }

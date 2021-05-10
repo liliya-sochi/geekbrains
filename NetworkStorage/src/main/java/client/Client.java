@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Client {
+    User user;
     private static final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(5);
 
     public void start() throws InterruptedException {
@@ -33,17 +34,10 @@ public class Client {
                         }
                     });
             System.out.println("[DEBUG]: Подключился новый клиент!");
-            ChannelFuture channelFuture = bootstrap.connect("localhost", 9000).sync();
-
-            /** while (true) {
-                final String message = String.format("[%s] %s", LocalDateTime.now(), Thread.currentThread().getName());
-                System.out.println("MESSAGE: " + message);
-                channelFuture.channel().writeAndFlush(message + "\n");
-                channelFuture.channel().writeAndFlush(message + System.lineSeparator()).sync();
-                Thread.sleep(1000);
-            } */
-        } catch (InterruptedException e ) {
-            e.printStackTrace();
+            ChannelFuture channelFuture = bootstrap.connect(ConfigClient.CLIENT_HOST, ConfigClient.CLIENT_PORT).sync();
+            channelFuture.channel().writeAndFlush(user.getLogin());
+        //} catch (InterruptedException e ) {
+            //e.printStackTrace();
         } finally {
             group.shutdownGracefully();
             THREAD_POOL.shutdown();
