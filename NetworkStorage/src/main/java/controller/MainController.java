@@ -8,6 +8,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class MainController {
     User user;
 
@@ -43,7 +49,14 @@ public class MainController {
     }
 
     public void loading() {
-        /** ПРОВЕРИТЬ, СУЩЕСТВУЕТ ЛИ ПАПКА ДЛЯ ПОЛЬЗОВАТЕЛЯ НА СЕРВЕРЕ, ЕСЛИ НЕТ - СОЗДАТЬ! */
+        /** ПРОВЕРКА, СУЩЕСТВУЕТ ЛИ ПАПКА ДЛЯ ПОЛЬЗОВАТЕЛЯ НА КЛИЕНТЕ, ЕСЛИ НЕТ - СОЗДАТЬ! */
+        try {
+            final String folderUser = "src/main/java/files/client/" + user.getLogin();
+            Path path = Paths.get(folderUser);
+            if (!Files.exists(path)) Files.createDirectory(Paths.get(folderUser));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         /** ЗАГРУЗИТЬ ИЕРАРХИЮ ПАПОК И ФАЙЛОВ В ПРИЛОЖЕНИЕ! */
         labStatus.setText("Добро пожаловать, " + user.getName() + "!");
     }

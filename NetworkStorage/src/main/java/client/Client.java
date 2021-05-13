@@ -1,46 +1,47 @@
 package client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
-import java.time.LocalDateTime;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.bytes.ByteArrayDecoder;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import network.common.JsonDecoder;
+import network.common.JsonEncoder;
 
 public class Client {
-    User user;
-    private static final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(5);
+    private String host = ConfigClient.CLIENT_HOST;
+    private int port = ConfigClient.CLIENT_PORT;
 
-    public void start() throws InterruptedException {
-        final NioEventLoopGroup group = new NioEventLoopGroup();
+    public void start(String login) {
+        NioEventLoopGroup group = new NioEventLoopGroup(1);
         try {
-            Bootstrap bootstrap = new Bootstrap()
+            Channel channel = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
-                    .option(ChannelOption.SO_KEEPALIVE, true)
-                    .handler(new ChannelInitializer<SocketChannel>() {
+                    .handler(new ChannelInitializer<NioSocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(
-                                    new StringEncoder(),
-                                    new StringDecoder()
-                            );
-                        }
-                    });
-            System.out.println("[DEBUG]: Подключился новый клиент!");
-            ChannelFuture channelFuture = bootstrap.connect(ConfigClient.CLIENT_HOST, ConfigClient.CLIENT_PORT).sync();
-            channelFuture.channel().writeAndFlush(user.getLogin());
-        //} catch (InterruptedException e ) {
-            //e.printStackTrace();
+                        protected void initChannel(NioSocketChannel nioSocketChannel) {
+                            nioSocketChannel.pipeline().addLast(
+                                    new LengthFieldBasedFrameDecoder(1024 * 1024, 0, 4, 0, 4),
+                                    new LengthFieldPrepender(4),
+                                    new ByteArrayDecoder(),
+                                    new ByteArrayEncoder(),
+                                    new JsonDecoder(),
+                                    new JsonEncoder(),
+                                    new ClientHandler());
+                            }
+                    })
+                    .connect(host, port).sync().channel();
+            channel.writeAndFlush(login);
+            //while (channel.isActive()) {}
+        } catch (InterruptedException e) {
+            System.err.println("[ERROR]: Соединение разорвано!");
         } finally {
             group.shutdownGracefully();
-            THREAD_POOL.shutdown();
         }
     }
 }

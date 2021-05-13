@@ -9,7 +9,7 @@ public class User {
         this.name = name;
         this.login = login;
         this.password = password;
-        new Client().start();
+        new Client().start(login);
     }
 
     public String getName() {
