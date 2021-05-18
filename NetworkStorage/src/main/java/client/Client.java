@@ -9,6 +9,8 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.bytes.ByteArrayDecoder;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import network.common.JsonDecoder;
 import network.common.JsonEncoder;
 
@@ -28,6 +30,8 @@ public class Client {
                             nioSocketChannel.pipeline().addLast(
                                     new LengthFieldBasedFrameDecoder(1024 * 1024, 0, 4, 0, 4),
                                     new LengthFieldPrepender(4),
+                                    new StringDecoder(),
+                                    new StringEncoder(),
                                     new ByteArrayDecoder(),
                                     new ByteArrayEncoder(),
                                     new JsonDecoder(),
@@ -36,7 +40,7 @@ public class Client {
                             }
                     })
                     .connect(host, port).sync().channel();
-            channel.writeAndFlush(login);
+            channel.writeAndFlush("liliya");
             //while (channel.isActive()) {}
         } catch (InterruptedException e) {
             System.err.println("[ERROR]: Соединение разорвано!");

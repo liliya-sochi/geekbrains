@@ -1,5 +1,6 @@
 package server;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -15,7 +16,6 @@ import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 
 public class ServerHandler extends SimpleChannelInboundHandler<Message> {
-    private String login;
     private final ExecutorService threadPool;
     private final static int BASIC_BUFFER_SIZE = 1024 * 512;
 
@@ -25,14 +25,6 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        /** ПРОВЕРКА, СУЩЕСТВУЕТ ЛИ ПАПКА ДЛЯ ПОЛЬЗОВАТЕЛЯ НА СЕРВЕРЕ, ЕСЛИ НЕТ - СОЗДАТЬ! */
-        try {
-            final String folderUser = "src/main/java/files/server/" + login;
-            Path path = Paths.get(folderUser);
-            if (!Files.exists(path)) Files.createDirectory(Paths.get(folderUser));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 //        threadPool.submit(() -> {
 //            final String filePath = "src/main/java/files/server";
 //            final String fileName = "file.txt";
@@ -79,7 +71,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Message message) throws Exception {
-        login = "" + message;
+
     }
 
     @Override

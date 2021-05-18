@@ -51,7 +51,7 @@ public class MainController {
     public void loading() {
         /** ПРОВЕРКА, СУЩЕСТВУЕТ ЛИ ПАПКА ДЛЯ ПОЛЬЗОВАТЕЛЯ НА КЛИЕНТЕ, ЕСЛИ НЕТ - СОЗДАТЬ! */
         try {
-            final String folderUser = "src/main/java/files/client/" + user.getLogin();
+            final String folderUser = "src/main/files/client/" + user.getLogin();
             Path path = Paths.get(folderUser);
             if (!Files.exists(path)) Files.createDirectory(Paths.get(folderUser));
         } catch (IOException e) {

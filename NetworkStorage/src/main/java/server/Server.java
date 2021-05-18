@@ -12,6 +12,8 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.bytes.ByteArrayDecoder;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import network.common.JsonDecoder;
 import network.common.JsonEncoder;
 
@@ -36,10 +38,13 @@ public class Server {
                             nioSocketChannel.pipeline().addLast(
                                 new LengthFieldBasedFrameDecoder(1024 * 1024, 0, 4, 0, 4),
                                 new LengthFieldPrepender(4),
+                                new StringDecoder(),
+                                new StringEncoder(),
                                 new ByteArrayDecoder(),
                                 new ByteArrayEncoder(),
                                 new JsonDecoder(),
                                 new JsonEncoder(),
+                                new LoginHandler(),
                                 new ServerHandler(threadPool));
                         }
                     })
