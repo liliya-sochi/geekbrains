@@ -1,12 +1,19 @@
 package controller;
 
 import client.User;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,6 +57,7 @@ public class MainController {
         this.user = user;
     }
 
+    @FXML
     public void loading() {
         try {
             final String folderUser = "src/main/files/client/" + user.getLogin();
@@ -87,5 +95,28 @@ public class MainController {
         }
 
         labStatus.setText("Добро пожаловать, " + user.getName() + "!");
+    }
+
+    @FXML
+    public void initialize() {
+        icoExit.setOnMouseClicked(event -> {
+            user.userExit();
+            openNewScene("/views/singIn.fxml");
+        });
+    }
+
+    private void openNewScene(String window) {
+        main.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            System.err.println("[ERROR]: Что-то пошло не так...");
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }

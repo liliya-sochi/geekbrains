@@ -15,13 +15,14 @@ import network.common.JsonDecoder;
 import network.common.JsonEncoder;
 
 public class Client {
+    private Channel channel;
     private String host = ConfigClient.CLIENT_HOST;
     private int port = ConfigClient.CLIENT_PORT;
 
     public void start(String login) {
         NioEventLoopGroup group = new NioEventLoopGroup(1);
         try {
-            Channel channel = new Bootstrap()
+            channel = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
                     .handler(new ChannelInitializer<NioSocketChannel>() {
@@ -40,12 +41,16 @@ public class Client {
                             }
                     })
                     .connect(host, port).sync().channel();
-            channel.writeAndFlush("liliya");
-            //while (channel.isActive()) {}
+            channel.writeAndFlush(login);
+            while (channel.isActive()) {}
         } catch (InterruptedException e) {
             System.err.println("[ERROR]: Соединение разорвано!");
         } finally {
             group.shutdownGracefully();
         }
+    }
+
+    public void stop() {
+        channel.close();
     }
 }

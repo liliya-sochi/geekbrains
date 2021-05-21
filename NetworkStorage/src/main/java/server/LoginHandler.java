@@ -30,6 +30,11 @@ public class LoginHandler extends SimpleChannelInboundHandler<String> {
     }
 
     @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        System.out.println("[DEBUG]: Пользователь " + login + " отключился!");
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();

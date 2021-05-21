@@ -1,6 +1,7 @@
 package client;
 
 public class User {
+    private Client client;
     private String name;
     private String login;
     private String password;
@@ -9,7 +10,13 @@ public class User {
         this.name = name;
         this.login = login;
         this.password = password;
-        new Client().start(login);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client = new Client();
+                client.start(login);
+            }
+        }).start();
     }
 
     public String getName() {
@@ -18,5 +25,9 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public void userExit() {
+        client.stop();
     }
 }

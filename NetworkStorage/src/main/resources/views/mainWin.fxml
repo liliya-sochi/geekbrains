@@ -30,7 +30,7 @@
       </Label>
       <ImageView fx:id="icoBack" fitHeight="50.0" fitWidth="50.0" layoutX="945.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../Downloads/icons8-стрелка-влево-в-круге-50.png" />
+            <Image url="/icons/ico-x50-back.png" />
          </image>
       </ImageView>
       <GridPane fx:id="gpBox" layoutX="145.0" layoutY="160.0" prefHeight="420.0" prefWidth="850.0">
