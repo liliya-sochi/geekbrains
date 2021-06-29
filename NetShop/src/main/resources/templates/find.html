@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Students</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <h1>Find By ID:</h1>
+    <form method="get" th:action="@{'/find'}">
+        <input class="form-control" th:value="${param.id != null ? param.id : ''}" type="number" placeholder="ID" name="id"/>
+        <button class="btn btn-primary" type="submit">Найти</button>
+    </form>
+    <h1>Products List:</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><b>ID</b></th>
+            <th><b>Title</b></th>
+            <th><b>Cost</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${product.getId()}"/>
+            <td th:text="${product.getTitle()}"/>
+            <td th:text="${product.getCost()}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
