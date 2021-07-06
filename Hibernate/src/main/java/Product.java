@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -13,6 +14,14 @@ public class Product {
 
     @Column(name = "cost")
     private int cost;
+
+    @ManyToMany
+    @JoinTable(
+            name = "box",
+            joinColumns = @JoinColumn(name = "product-id"),
+            inverseJoinColumns = @JoinColumn(name = "user-id")
+    )
+    private List<User> users;
 
     public Long getId() {
         return id;
